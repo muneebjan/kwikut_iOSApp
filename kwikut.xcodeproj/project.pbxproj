@@ -1,0 +1,550 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		180A570621D4AC96003C35D8 /* FifteenSecsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A570521D4AC96003C35D8 /* FifteenSecsViewController.swift */; };
+		180A572621D4CE94003C35D8 /* VideoPlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A572521D4CE94003C35D8 /* VideoPlayback.swift */; };
+		1860D0532216A22E006D251B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860D0522216A22E006D251B /* ToastView.swift */; };
+		1868CC65225226C800E8ABB8 /* Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1868CC64225226C800E8ABB8 /* Merge.swift */; };
+		1884BF12221186D00016B31F /* KVVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884BF11221186D00016B31F /* KVVideoManager.swift */; };
+		188FCAB522F9764100E8C47F /* customViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188FCAB422F9764100E8C47F /* customViews.swift */; };
+		188FCAB722F9879900E8C47F /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188FCAB622F9879900E8C47F /* BebasNeue-Regular.ttf */; };
+		188FCAB922F9899300E8C47F /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188FCAB822F9899200E8C47F /* Raleway-Regular.ttf */; };
+		18CB295321C8F52B00AE7B93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CB295221C8F52B00AE7B93 /* AppDelegate.swift */; };
+		18CB295521C8F52B00AE7B93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CB295421C8F52B00AE7B93 /* ViewController.swift */; };
+		18CB295821C8F52B00AE7B93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CB295621C8F52B00AE7B93 /* Main.storyboard */; };
+		18CB295A21C8F53200AE7B93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18CB295921C8F53200AE7B93 /* Assets.xcassets */; };
+		18CB295D21C8F53200AE7B93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CB295B21C8F53200AE7B93 /* LaunchScreen.storyboard */; };
+		18CB296B21C910F900AE7B93 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296521C910F900AE7B93 /* Roboto-Medium.ttf */; };
+		18CB296C21C910F900AE7B93 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296621C910F900AE7B93 /* Roboto-Bold.ttf */; };
+		18CB296D21C910F900AE7B93 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296721C910F900AE7B93 /* Roboto-Black.ttf */; };
+		18CB296E21C910F900AE7B93 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296821C910F900AE7B93 /* Roboto-Thin.ttf */; };
+		18CB296F21C910F900AE7B93 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296921C910F900AE7B93 /* Roboto-Regular.ttf */; };
+		18CB297021C910F900AE7B93 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296A21C910F900AE7B93 /* Roboto-Light.ttf */; };
+		18CB297221C9160F00AE7B93 /* ThirtySecondsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CB297121C9160F00AE7B93 /* ThirtySecondsVC.swift */; };
+		18CB297421C9162800AE7B93 /* FifteenSecondsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CB297321C9162800AE7B93 /* FifteenSecondsVC.swift */; };
+		18CB297621C9164200AE7B93 /* SixtySecondsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CB297521C9164200AE7B93 /* SixtySecondsVC.swift */; };
+		18F7A30121EDF017006CCA03 /* melodyloops-skater.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A30021EDF017006CCA03 /* melodyloops-skater.mp3 */; };
+		18F7A30321EDF13F006CCA03 /* melodyloops-the-first-light.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A30221EDF13F006CCA03 /* melodyloops-the-first-light.mp3 */; };
+		18F7A30521EDF144006CCA03 /* melodyloops-find-the-key.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A30421EDF144006CCA03 /* melodyloops-find-the-key.mp3 */; };
+		18F7A30721EDF149006CCA03 /* melodyloops-winter-love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A30621EDF149006CCA03 /* melodyloops-winter-love.mp3 */; };
+		18F7A30921EDF14E006CCA03 /* melodyloops-travel-dreams.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A30821EDF14E006CCA03 /* melodyloops-travel-dreams.mp3 */; };
+		18F80245225B4C6C00516D13 /* SlowMoVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F80244225B4C6C00516D13 /* SlowMoVideo.swift */; };
+		519B1D2756FD696275C06495 /* Pods_kwikut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF55CF14BC9455FF218AA216 /* Pods_kwikut.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		12F87367FA038E287E8C60EB /* Pods-kwikut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kwikut.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kwikut/Pods-kwikut.debug.xcconfig"; sourceTree = "<group>"; };
+		180A570521D4AC96003C35D8 /* FifteenSecsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifteenSecsViewController.swift; sourceTree = "<group>"; };
+		180A572521D4CE94003C35D8 /* VideoPlayback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayback.swift; sourceTree = "<group>"; };
+		1860D0522216A22E006D251B /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		1868CC64225226C800E8ABB8 /* Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merge.swift; sourceTree = "<group>"; };
+		1884BF10221181C50016B31F /* kwikut-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "kwikut-Bridging-Header.h"; sourceTree = "<group>"; };
+		1884BF11221186D00016B31F /* KVVideoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVVideoManager.swift; sourceTree = "<group>"; };
+		188FCAB422F9764100E8C47F /* customViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customViews.swift; sourceTree = "<group>"; };
+		188FCAB622F9879900E8C47F /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
+		188FCAB822F9899200E8C47F /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		18CB294F21C8F52B00AE7B93 /* kwikut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kwikut.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18CB295221C8F52B00AE7B93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		18CB295421C8F52B00AE7B93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		18CB295721C8F52B00AE7B93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		18CB295921C8F53200AE7B93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18CB295C21C8F53200AE7B93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		18CB295E21C8F53200AE7B93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18CB296521C910F900AE7B93 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		18CB296621C910F900AE7B93 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		18CB296721C910F900AE7B93 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		18CB296821C910F900AE7B93 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		18CB296921C910F900AE7B93 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		18CB296A21C910F900AE7B93 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		18CB297121C9160F00AE7B93 /* ThirtySecondsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirtySecondsVC.swift; sourceTree = "<group>"; };
+		18CB297321C9162800AE7B93 /* FifteenSecondsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifteenSecondsVC.swift; sourceTree = "<group>"; };
+		18CB297521C9164200AE7B93 /* SixtySecondsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixtySecondsVC.swift; sourceTree = "<group>"; };
+		18F7A30021EDF017006CCA03 /* melodyloops-skater.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "melodyloops-skater.mp3"; sourceTree = "<group>"; };
+		18F7A30221EDF13F006CCA03 /* melodyloops-the-first-light.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "melodyloops-the-first-light.mp3"; sourceTree = "<group>"; };
+		18F7A30421EDF144006CCA03 /* melodyloops-find-the-key.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "melodyloops-find-the-key.mp3"; sourceTree = "<group>"; };
+		18F7A30621EDF149006CCA03 /* melodyloops-winter-love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "melodyloops-winter-love.mp3"; sourceTree = "<group>"; };
+		18F7A30821EDF14E006CCA03 /* melodyloops-travel-dreams.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "melodyloops-travel-dreams.mp3"; sourceTree = "<group>"; };
+		18F80244225B4C6C00516D13 /* SlowMoVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlowMoVideo.swift; sourceTree = "<group>"; };
+		BC023750030A322135BAF84C /* Pods-kwikut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kwikut.release.xcconfig"; path = "Pods/Target Support Files/Pods-kwikut/Pods-kwikut.release.xcconfig"; sourceTree = "<group>"; };
+		BF55CF14BC9455FF218AA216 /* Pods_kwikut.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kwikut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18CB294C21C8F52B00AE7B93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				519B1D2756FD696275C06495 /* Pods_kwikut.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1860D0542216A236006D251B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1884BF11221186D00016B31F /* KVVideoManager.swift */,
+				1860D0522216A22E006D251B /* ToastView.swift */,
+				18F80244225B4C6C00516D13 /* SlowMoVideo.swift */,
+				188FCAB422F9764100E8C47F /* customViews.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		18CB294621C8F52B00AE7B93 = {
+			isa = PBXGroup;
+			children = (
+				18CB295121C8F52B00AE7B93 /* kwikut */,
+				18CB295021C8F52B00AE7B93 /* Products */,
+				8A3A36C0049BA6FAEC9DEC2F /* Pods */,
+				E70FD6BB835028FE612655E5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		18CB295021C8F52B00AE7B93 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18CB294F21C8F52B00AE7B93 /* kwikut.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18CB295121C8F52B00AE7B93 /* kwikut */ = {
+			isa = PBXGroup;
+			children = (
+				18CB296421C910E800AE7B93 /* Resources */,
+				1860D0542216A236006D251B /* Extensions */,
+				1868CC64225226C800E8ABB8 /* Merge.swift */,
+				18CB295221C8F52B00AE7B93 /* AppDelegate.swift */,
+				18CB295421C8F52B00AE7B93 /* ViewController.swift */,
+				180A570521D4AC96003C35D8 /* FifteenSecsViewController.swift */,
+				180A572521D4CE94003C35D8 /* VideoPlayback.swift */,
+				18CB297321C9162800AE7B93 /* FifteenSecondsVC.swift */,
+				18CB297121C9160F00AE7B93 /* ThirtySecondsVC.swift */,
+				18CB297521C9164200AE7B93 /* SixtySecondsVC.swift */,
+				1884BF10221181C50016B31F /* kwikut-Bridging-Header.h */,
+				18CB295621C8F52B00AE7B93 /* Main.storyboard */,
+				18CB295921C8F53200AE7B93 /* Assets.xcassets */,
+				18CB295B21C8F53200AE7B93 /* LaunchScreen.storyboard */,
+				18CB295E21C8F53200AE7B93 /* Info.plist */,
+			);
+			path = kwikut;
+			sourceTree = "<group>";
+		};
+		18CB296421C910E800AE7B93 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				18F7A30021EDF017006CCA03 /* melodyloops-skater.mp3 */,
+				18F7A30221EDF13F006CCA03 /* melodyloops-the-first-light.mp3 */,
+				18F7A30421EDF144006CCA03 /* melodyloops-find-the-key.mp3 */,
+				18F7A30621EDF149006CCA03 /* melodyloops-winter-love.mp3 */,
+				18F7A30821EDF14E006CCA03 /* melodyloops-travel-dreams.mp3 */,
+				188FCAB622F9879900E8C47F /* BebasNeue-Regular.ttf */,
+				188FCAB822F9899200E8C47F /* Raleway-Regular.ttf */,
+				18CB296721C910F900AE7B93 /* Roboto-Black.ttf */,
+				18CB296621C910F900AE7B93 /* Roboto-Bold.ttf */,
+				18CB296A21C910F900AE7B93 /* Roboto-Light.ttf */,
+				18CB296521C910F900AE7B93 /* Roboto-Medium.ttf */,
+				18CB296921C910F900AE7B93 /* Roboto-Regular.ttf */,
+				18CB296821C910F900AE7B93 /* Roboto-Thin.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8A3A36C0049BA6FAEC9DEC2F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				12F87367FA038E287E8C60EB /* Pods-kwikut.debug.xcconfig */,
+				BC023750030A322135BAF84C /* Pods-kwikut.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E70FD6BB835028FE612655E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF55CF14BC9455FF218AA216 /* Pods_kwikut.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18CB294E21C8F52B00AE7B93 /* kwikut */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18CB296121C8F53200AE7B93 /* Build configuration list for PBXNativeTarget "kwikut" */;
+			buildPhases = (
+				940B438015B2872E4692F20B /* [CP] Check Pods Manifest.lock */,
+				18CB294B21C8F52B00AE7B93 /* Sources */,
+				18CB294C21C8F52B00AE7B93 /* Frameworks */,
+				18CB294D21C8F52B00AE7B93 /* Resources */,
+				5086BC4ABCD5F619B00F031C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = kwikut;
+			productName = kwikut;
+			productReference = 18CB294F21C8F52B00AE7B93 /* kwikut.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18CB294721C8F52B00AE7B93 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = devstop;
+				TargetAttributes = {
+					18CB294E21C8F52B00AE7B93 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+					};
+				};
+			};
+			buildConfigurationList = 18CB294A21C8F52B00AE7B93 /* Build configuration list for PBXProject "kwikut" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 18CB294621C8F52B00AE7B93;
+			productRefGroup = 18CB295021C8F52B00AE7B93 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18CB294E21C8F52B00AE7B93 /* kwikut */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18CB294D21C8F52B00AE7B93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18F7A30321EDF13F006CCA03 /* melodyloops-the-first-light.mp3 in Resources */,
+				18CB296E21C910F900AE7B93 /* Roboto-Thin.ttf in Resources */,
+				18CB296B21C910F900AE7B93 /* Roboto-Medium.ttf in Resources */,
+				188FCAB922F9899300E8C47F /* Raleway-Regular.ttf in Resources */,
+				18F7A30521EDF144006CCA03 /* melodyloops-find-the-key.mp3 in Resources */,
+				18CB296F21C910F900AE7B93 /* Roboto-Regular.ttf in Resources */,
+				188FCAB722F9879900E8C47F /* BebasNeue-Regular.ttf in Resources */,
+				18CB295D21C8F53200AE7B93 /* LaunchScreen.storyboard in Resources */,
+				18CB296C21C910F900AE7B93 /* Roboto-Bold.ttf in Resources */,
+				18CB295A21C8F53200AE7B93 /* Assets.xcassets in Resources */,
+				18CB295821C8F52B00AE7B93 /* Main.storyboard in Resources */,
+				18CB296D21C910F900AE7B93 /* Roboto-Black.ttf in Resources */,
+				18F7A30121EDF017006CCA03 /* melodyloops-skater.mp3 in Resources */,
+				18CB297021C910F900AE7B93 /* Roboto-Light.ttf in Resources */,
+				18F7A30921EDF14E006CCA03 /* melodyloops-travel-dreams.mp3 in Resources */,
+				18F7A30721EDF149006CCA03 /* melodyloops-winter-love.mp3 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5086BC4ABCD5F619B00F031C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-kwikut/Pods-kwikut-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/DKCamera/DKCamera.framework",
+				"${BUILT_PRODUCTS_DIR}/DKImagePickerController/DKImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/DKPhotoGallery/DKPhotoGallery.framework",
+				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
+				"${BUILT_PRODUCTS_DIR}/LCActionSheet/LCActionSheet.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/ProgressiveAlertView/ProgressiveAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/QBImagePickerController/QBImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/RAReorderableLayout/RAReorderableLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftVideoGenerator/SwiftVideoGenerator.framework",
+				"${BUILT_PRODUCTS_DIR}/TOCropViewController/TOCropViewController.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountdownLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKCamera.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKPhotoGallery.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LCActionSheet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressiveAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QBImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAReorderableLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftVideoGenerator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TOCropViewController.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-kwikut/Pods-kwikut-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		940B438015B2872E4692F20B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-kwikut-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18CB294B21C8F52B00AE7B93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1868CC65225226C800E8ABB8 /* Merge.swift in Sources */,
+				188FCAB522F9764100E8C47F /* customViews.swift in Sources */,
+				180A570621D4AC96003C35D8 /* FifteenSecsViewController.swift in Sources */,
+				18CB297621C9164200AE7B93 /* SixtySecondsVC.swift in Sources */,
+				18F80245225B4C6C00516D13 /* SlowMoVideo.swift in Sources */,
+				1884BF12221186D00016B31F /* KVVideoManager.swift in Sources */,
+				18CB295521C8F52B00AE7B93 /* ViewController.swift in Sources */,
+				180A572621D4CE94003C35D8 /* VideoPlayback.swift in Sources */,
+				18CB297221C9160F00AE7B93 /* ThirtySecondsVC.swift in Sources */,
+				18CB297421C9162800AE7B93 /* FifteenSecondsVC.swift in Sources */,
+				1860D0532216A22E006D251B /* ToastView.swift in Sources */,
+				18CB295321C8F52B00AE7B93 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		18CB295621C8F52B00AE7B93 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18CB295721C8F52B00AE7B93 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		18CB295B21C8F53200AE7B93 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18CB295C21C8F53200AE7B93 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		18CB295F21C8F53200AE7B93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		18CB296021C8F53200AE7B93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18CB296221C8F53200AE7B93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12F87367FA038E287E8C60EB /* Pods-kwikut.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXW7DDW8B6;
+				INFOPLIST_FILE = kwikut/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.devstop.kwikut;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "kwikut/kwikut-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		18CB296321C8F53200AE7B93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC023750030A322135BAF84C /* Pods-kwikut.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXW7DDW8B6;
+				INFOPLIST_FILE = kwikut/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.devstop.kwikut;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "kwikut/kwikut-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18CB294A21C8F52B00AE7B93 /* Build configuration list for PBXProject "kwikut" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18CB295F21C8F53200AE7B93 /* Debug */,
+				18CB296021C8F53200AE7B93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18CB296121C8F53200AE7B93 /* Build configuration list for PBXNativeTarget "kwikut" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18CB296221C8F53200AE7B93 /* Debug */,
+				18CB296321C8F53200AE7B93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 18CB294721C8F52B00AE7B93 /* Project object */;
+}

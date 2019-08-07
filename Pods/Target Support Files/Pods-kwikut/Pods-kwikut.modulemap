@@ -1,0 +1,6 @@
+framework module Pods_kwikut {
+  umbrella header "Pods-kwikut-umbrella.h"
+
+  export *
+  module * { export * }
+}
