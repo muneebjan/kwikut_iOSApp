@@ -123,17 +123,28 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
     var previewLayer: AVCaptureVideoPreviewLayer!
     var activeInput: AVCaptureDeviceInput!
     var outputURL: URL!
-    
+    var clipTapped: Bool?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let vc = segue.destination as! VideoPlayback
-        vc.videoURL = sender as! URL
-        vc.videoCount = URLcollection.count
-        vc.delegate = self
+        if(clipTapped == true){
+            let vc = segue.destination as! VideoPlayback
+            vc.videoURL = sender as! URL
+            vc.videoCount = URLcollection.count
+            //        vc.singleClipTapped = clipTapped
+            vc.delegate = self
+        }else{
+            let vcf = segue.destination as! VideoPlaybackFilter
+            vcf.videoURL = sender as! URL
+            vcf.videoCount = URLcollection.count
+            //        vc.singleClipTapped = clipTapped
+            //        vcf.delegate = self
+        }
         
     }
     
+    
+
     
     // VIEW WILL APPEAR
     override func viewWillAppear(_ animated: Bool) {
@@ -196,7 +207,7 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
         
         
         countDownlabel.countdownDelegate = self
-        
+        countDownlabel.text = "Select your clips"
 //        (collectionViewPreviewContainer.collectionViewLayout as! RAReorderableLayout).scrollDirection = .horizontal
         collectionViewPreviewContainer.delegate = self
         collectionViewPreviewContainer.dataSource = self
@@ -239,7 +250,7 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
         bottomContainerView.addSubview(collectionViewPreviewContainer)
         topContainerView.addSubview(countDownlabel)
         
-        countDownlabel.isHidden = true
+//        countDownlabel.isHidden = true
         //        switchCameraButton.isHidden = true
         
         
@@ -712,9 +723,11 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
     }
     
     
-
+    // MARK:- MERGING ACTION SHEET
     
     @objc func showActionSheet(){
+        
+        self.clipTapped = false
         
         if(self.videoModeCheck == 1){
             if(self.URLcollection.count < 5){
@@ -766,7 +779,7 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
                             self.removeAudioFromVideo(videoURL: finalUrl! as NSURL, completion: { (url, error) in
                                 //                                print("url without audio: \(url!)")
                                 UIViewController.removeSpinner(spinner: sv)
-                                self.performSegue(withIdentifier: "showVideo", sender: url!)
+                                self.performSegue(withIdentifier: "showVideoFilter", sender: url!)
                             })
 
                         })
@@ -795,7 +808,7 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
                                 UIViewController.removeSpinner(spinner: sv)
                                 let assets = AVURLAsset(url: url as! URL)
                                 print("after removing audio merge time is : \(assets.duration.seconds)")
-                                self.performSegue(withIdentifier: "showVideo", sender: url!)
+                                self.performSegue(withIdentifier: "showVideoFilter", sender: url!)
                             })
 
                         })
@@ -855,7 +868,7 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
                             self.removeAudioFromVideo(videoURL: finalUrl! as NSURL, completion: { (url, error) in
                                 //                                print("url without audio: \(url!)")
                                 UIViewController.removeSpinner(spinner: sv)
-                                self.performSegue(withIdentifier: "showVideo", sender: url!)
+                                self.performSegue(withIdentifier: "showVideoFilter", sender: url!)
                             })
                             
                         })
@@ -891,7 +904,7 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
                                 UIViewController.removeSpinner(spinner: sv)
                                 let assets = AVURLAsset(url: url as! URL)
                                 print("after removing audio merge time is : \(assets.duration.seconds)")
-                                self.performSegue(withIdentifier: "showVideo", sender: url!)
+                                self.performSegue(withIdentifier: "showVideoFilter", sender: url!)
                             })
                             
                         })
@@ -955,7 +968,7 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
                             self.removeAudioFromVideo(videoURL: finalUrl! as NSURL, completion: { (url, error) in
                                 //                                print("url without audio: \(url!)")
                                 UIViewController.removeSpinner(spinner: sv)
-                                self.performSegue(withIdentifier: "showVideo", sender: url!)
+                                self.performSegue(withIdentifier: "showVideoFilter", sender: url!)
                             })
                             
                         })
@@ -992,7 +1005,7 @@ class FifteenSecsViewController: UIViewController, AVCaptureFileOutputRecordingD
                                 UIViewController.removeSpinner(spinner: sv)
                                 let assets = AVURLAsset(url: url as! URL)
                                 print("after removing audio merge time is : \(assets.duration.seconds)")
-                                self.performSegue(withIdentifier: "showVideo", sender: url!)
+                                self.performSegue(withIdentifier: "showVideoFilter", sender: url!)
                             })
                             
                         })
@@ -1574,7 +1587,7 @@ extension FifteenSecsViewController: tapImageProtocol{
     func tapImage(index: Int) {
         print("tapped index: \(index)")
         self.selectedVideoIndex = index
-        
+        self.clipTapped = true
 //        VSVideoSpeeder.shared.scaleAsset(fromURL: URLcollection[index], by: 1, withMode: SpeedoMode.Slower) { (exporter) in
 //            print(exporter?.outputURL)
 //            self.performSegue(withIdentifier: "showVideo", sender: exporter?.outputURL!)
@@ -1586,6 +1599,8 @@ extension FifteenSecsViewController: tapImageProtocol{
     
     @IBAction func unwindToFifteenSecondVC(segue: UIStoryboardSegue) {
     }
+    
+    
     
 }
 

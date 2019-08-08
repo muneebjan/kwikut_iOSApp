@@ -4,17 +4,11 @@ import CoreMedia
 import LCActionSheet
 import Photos
 import ProgressiveAlertView
-import DKImagePickerController
 import MobileCoreServices
 
 
 
-protocol sendingDataBacktoViewController{
-    func gettingCropedVideoURL(videourl: URL)
-}
-
-
-class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class VideoPlaybackFilter: UIViewController, LCActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let topContainerView: UIView = {
         let view = UIView()
@@ -30,24 +24,45 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         //        button.backgroundColor = .red
         return button
     }()
-    let musicButton: UIButton = {
+    
+    let forwordButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add Music", for: .normal)
-        button.addTarget(self, action: #selector(addMusicButtonTapped), for: .touchUpInside)
+        button.setImage(UIImage(named: "forward_disable"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    let saveButton: UIButton = {
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Select an effect"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let bottomIconsContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let effectButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Save", for: .normal)
-        button.addTarget(self, action: #selector(saveVideoButtonTapped), for: .touchUpInside)
+        button.setImage(UIImage(named: "fx_icon.png"), for: UIControl.State.normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let playButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "play_button.png"), for: UIControl.State.normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     //    let context = CIContext(eaglContext: EAGLContext(api: .openGLES3) ?? EAGLContext(api: .openGLES2)!)
     
-    var delegate: sendingDataBacktoViewController?
     let avPlayer = AVPlayer()
     var avPlayerLayer: AVPlayerLayer!
     var videoURL: URL!
@@ -59,35 +74,23 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
     var audioAddedURL: URL?
     var finalAudioVideoURL: URL?
     var backgroundPlayer = AVAudioPlayer()
-    let myPickerController = UIImagePickerController()
-    let dkpicker = DKImagePickerController()
+    var effectsTapped: Bool?
+
+
+    var index: Int!
+    var singleClipTapped: Bool?
     
-    
-    @IBOutlet weak var videoImageView: UIImageView!
+    @IBOutlet weak var videoImageViewFilter: UIImageView!
     
     
     // view will appear
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        print("merge button: \(UserDefaults.standard.bool(forKey: "mergePressed"))")
-        
-        if(UserDefaults.standard.bool(forKey: "mergePressed")){
-            self.musicButton.isHidden = false
-        }else{
-            self.musicButton.isHidden = true
-        }
-        
-        if(self.tapCheck){
-            self.musicButton.isHidden = false
-            self.saveButton.isHidden = false
-        }else{
-            self.musicButton.isHidden = true
-            self.saveButton.isHidden = true
-        }
-        
+        self.filteredVideoURL = self.videoURL
     }
+    
+    // MARK:- VIEW DID LOAD
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,12 +100,14 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         
         // back button target
         self.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
+        self.effectButton.addTarget(self, action: #selector(effectButtonHandler), for: .touchUpInside)
+        self.playButton.addTarget(self, action: #selector(playButtonHandler), for: .touchUpInside)
+        self.forwordButton.addTarget(self, action: #selector(forwardButtonHandler), for: .touchUpInside)
         
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
         avPlayerLayer.frame = view.bounds
         avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        videoImageView.layer.insertSublayer(avPlayerLayer, at: 0)
+        videoImageViewFilter.layer.insertSublayer(avPlayerLayer, at: 0)
         
         view.layoutIfNeeded()
         
@@ -110,12 +115,12 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         avPlayer.replaceCurrentItem(with: playerItem)
         avPlayer.play()
         
-        addGesture()
-        
         // setupviews calling
         setupViews()
         
     }
+    
+    // MARK:- VIEW WILL DISAPPEAR
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
@@ -123,6 +128,17 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         avPlayer.pause() // 1. pause the player to stop it
         avPlayerLayer?.player = nil // 2. set the playerLayer's player to nil
         avPlayerLayer?.removeFromSuperlayer()
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        let vc = segue.destination as! VideoPlaybackSound
+        vc.videoURL = sender as! URL
+        //        vc.videoCount = URLcollection.count
+
+        
     }
     
     // ==========================================================================================
@@ -134,16 +150,23 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         // ================= ADDING VIEWS ======================
         //        view.addSubview(backButton)
         view.addSubview(topContainerView)
+        view.addSubview(bottomIconsContainerView)
         topContainerView.addSubview(backButton)
-        topContainerView.addSubview(musicButton)
-        topContainerView.addSubview(saveButton)
+//        topContainerView.addSubview(musicButton)
+//        topContainerView.addSubview(saveButton)
+        topContainerView.addSubview(titleLabel)
+        topContainerView.addSubview(forwordButton)
+        
+        
+        bottomIconsContainerView.addSubview(effectButton)
+        bottomIconsContainerView.addSubview(playButton)
         
         // =================== CONSTRAINTS ====================
         
-        topContainerView.topAnchor.constraint(equalTo: videoImageView.topAnchor).isActive = true
-        topContainerView.leftAnchor.constraint(equalTo: videoImageView.leftAnchor).isActive = true
-        topContainerView.rightAnchor.constraint(equalTo: videoImageView.rightAnchor).isActive = true
-        topContainerView.heightAnchor.constraint(equalTo: videoImageView.heightAnchor, multiplier: 0.1).isActive = true
+        topContainerView.topAnchor.constraint(equalTo: videoImageViewFilter.topAnchor).isActive = true
+        topContainerView.leftAnchor.constraint(equalTo: videoImageViewFilter.leftAnchor).isActive = true
+        topContainerView.rightAnchor.constraint(equalTo: videoImageViewFilter.rightAnchor).isActive = true
+        topContainerView.heightAnchor.constraint(equalTo: videoImageViewFilter.heightAnchor, multiplier: 0.1).isActive = true
         
         backButton.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor).isActive = true
         backButton.leftAnchor.constraint(equalTo: topContainerView.leftAnchor, constant: 20).isActive = true
@@ -151,16 +174,30 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         backButton.widthAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 0.35).isActive = true
         
         
+        titleLabel.centerXAnchor.constraint(equalTo: topContainerView.centerXAnchor).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor).isActive = true
         
-        //        backButton.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor).isActive = true
-        //        backButton.leftAnchor.constraint(equalTo: topContainerView.leftAnchor, constant: 10).isActive = true
         
+        bottomIconsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bottomIconsContainerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        bottomIconsContainerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        bottomIconsContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.13).isActive = true
         
-        musicButton.rightAnchor.constraint(equalTo: topContainerView.rightAnchor, constant: -10).isActive = true
-        musicButton.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor).isActive = true
+        effectButton.centerXAnchor.constraint(equalTo: bottomIconsContainerView.centerXAnchor).isActive = true
+        effectButton.centerYAnchor.constraint(equalTo: bottomIconsContainerView.centerYAnchor).isActive = true
+        effectButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        effectButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        saveButton.centerXAnchor.constraint(equalTo: topContainerView.centerXAnchor).isActive = true
-        saveButton.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor).isActive = true
+        playButton.centerYAnchor.constraint(equalTo: bottomIconsContainerView.centerYAnchor).isActive = true
+        playButton.rightAnchor.constraint(equalTo: bottomIconsContainerView.rightAnchor, constant: -30).isActive = true
+        playButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        playButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        forwordButton.rightAnchor.constraint(equalTo: topContainerView.rightAnchor, constant: -20).isActive = true
+        forwordButton.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor).isActive = true
+        forwordButton.heightAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 0.35).isActive = true
+        forwordButton.widthAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 0.35).isActive = true
+        
         
     }
     
@@ -291,24 +328,7 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         return composition
         
     }
-    
-    // ==========================================================================================
-    // ==================================== ADDING GESTURE ======================================
-    // ==========================================================================================
-    
-    func addGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(retakeActionSheet))
-        let filtertap = UITapGestureRecognizer(target: self, action: #selector(filtersActionSheet))
-        
-        if(UserDefaults.standard.bool(forKey: "mergePressed")){
-            view.addGestureRecognizer(filtertap)
-        }else{
-            view.addGestureRecognizer(tap)
-        }
-        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(zoomPinchFunction))
-        view.addGestureRecognizer(pinch)
-    }
-    
+
     
     
     // ==========================================================================================
@@ -371,7 +391,7 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         
     }
     
-    
+    // MARK:- FILTERS ACTION SHEET
     
     @objc func filtersActionSheet(){
         
@@ -384,157 +404,37 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
                 let playerItem = AVPlayerItem(url: self.videoURL)
                 self.avPlayer.replaceCurrentItem(with: playerItem)
                 self.avPlayer.play()
-                self.musicButton.isHidden = false
-                self.saveButton.isHidden = false
+
             }
             if(index == 1){
+                self.index = index
                 self.tapCheck = true
-                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.saveButton.isEnabled = false
-                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.musicButton.isEnabled = false
-                self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectChrome", completion: { (AVAssetExportSession) in
-                    print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                    self.saveButton.isEnabled = true
-                    self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                    self.musicButton.isEnabled = true
-                    self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                })
-                self.musicButton.isHidden = false
-                self.saveButton.isHidden = false
             }
             if(index == 2){
+                self.index = index
                 self.tapCheck = true
-                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.saveButton.isEnabled = false
-                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.musicButton.isEnabled = false
-                self.playingVideo(videoUrl: self.videoURL, filterNames: "CISepiaTone", completion: { (AVAssetExportSession) in
-                    print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                    self.saveButton.isEnabled = true
-                    self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                    self.musicButton.isEnabled = true
-                    self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                })
-                self.musicButton.isHidden = false
-                self.saveButton.isHidden = false
                 
             }
             if(index == 3){
+                self.index = index
                 self.tapCheck = true
-                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.saveButton.isEnabled = false
-                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.musicButton.isEnabled = false
-                self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectTransfer", completion: { (AVAssetExportSession) in
-                    print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                    self.saveButton.isEnabled = true
-                    self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                    self.musicButton.isEnabled = true
-                    self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                })
-                self.musicButton.isHidden = false
-                self.saveButton.isHidden = false
             }
             if(index == 4){
+                self.index = index
                 self.tapCheck = true
-                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.saveButton.isEnabled = false
-                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.musicButton.isEnabled = false
-                self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectTonal", completion: { (AVAssetExportSession) in
-                    print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                    self.saveButton.isEnabled = true
-                    self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                    self.musicButton.isEnabled = true
-                    self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                })
-                self.musicButton.isHidden = false
-                self.saveButton.isHidden = false
+
             }
             if(index == 5){
+                self.index = index
                 self.tapCheck = true
-                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.saveButton.isEnabled = false
-                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-                self.musicButton.isEnabled = false
-                self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectProcess", completion: { (AVAssetExportSession) in
-                    print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                    self.saveButton.isEnabled = true
-                    self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                    self.musicButton.isEnabled = true
-                    self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                })
-                self.musicButton.isHidden = false
-                self.saveButton.isHidden = false
+
             }
             
         }, otherButtonTitleArray: ["Chrome Effect", "SepiaTone", "Transfer Effect", "Tonal Effect", "Process Effect"])
         actionsheet.show()
         
     }
-    
-    @objc func retakeActionSheet(){
-        
-        let actionSheet = UIAlertController(title: "Options", message: "Would you like to Retake this Clip?", preferredStyle: .actionSheet)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            print("cancel pressed")
-            self.performSegue(withIdentifier: "unwindToFifteenSeconds", sender: self)
-            
-        }
-        
-        let retake = UIAlertAction(title: "Retake", style: .default) { (action) in
-            print("retake pressed")
-            UserDefaults.standard.set(true, forKey: "retakePressed")
-            UserDefaults.standard.synchronize()
-            self.performSegue(withIdentifier: "unwindToFifteenSeconds", sender: self)
-        }
-        let chooseVideoFromGallery = UIAlertAction(title: "Choose Video From Gallery", style: .default) { (action) in
-            print("gallery open")
-            
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-                self.myPickerController.delegate = self
-                self.myPickerController.sourceType = .photoLibrary
-                self.myPickerController.mediaTypes = [kUTTypeMovie as String]
-                //                self.myPickerController.mediaTypes = ["public.movie"]
-                self.present(self.myPickerController, animated: true, completion: nil)
-            }
-            
-        }
-        
-        actionSheet.addAction(retake)
-        actionSheet.addAction(chooseVideoFromGallery)
-        actionSheet.addAction(cancel)
-        
-        present(actionSheet, animated: true, completion: nil)
-        
-    }
-    // UIimagePIcker Controller delegate
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        let videoURL = info[UIImagePickerController.InfoKey.referenceURL] as! URL
-        //        let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? NSURL
-        
-        print("selecting video URL: \(videoURL)")
-        let asset = AVAsset(url: videoURL as! URL)
-        
-        if(asset.duration.seconds < 3){
-            self.displayMyAlertMessage(userMessage: "Can't Import Video less than 3 seconds")
-            self.dismiss(animated: true, completion: nil)
-        }else{
-            
-            self.cropVideo(sourceURL: videoURL as! URL, startTime: 0.0, endTime: 3.0) { (url) in
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.gettingCropedVideoURL(videourl: url)
-                self.performSegue(withIdentifier: "unwindToFifteenSeconds", sender: self)
-            }
-        }
-    }
+
     
     // CUSTOM ALERT FUNCTION
     
@@ -605,8 +505,83 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         print("backbutton tapped")
         self.avPlayer.pause()
         self.avPlayerLayer.removeFromSuperlayer()
-        self.performSegue(withIdentifier: "unwindToFifteenSeconds", sender: self)
+        self.performSegue(withIdentifier: "unwindToFifteenSecondsFromFilter", sender: self)
     }
+    
+    // MARK:- EFFECT BUTTON
+    @objc func effectButtonHandler() {
+        print("effect tapped")
+        filtersActionSheet()
+    }
+    
+    // MARK:- FORWARD BUTTON
+    
+    @objc func forwardButtonHandler() {
+        print("forward tapped")
+        
+        performSegue(withIdentifier: "showVideoSound", sender: self.filteredVideoURL!)
+    }
+    
+    
+    // MARK:- PLAY BUTTON
+    @objc func playButtonHandler() {
+        print("play tapped")
+        if self.index == nil{
+            print("no filter select")
+            self.filteredVideoURL = self.videoURL
+        }
+        else if(self.index == 0){
+            
+            let playerItem = AVPlayerItem(url: self.videoURL)
+            self.avPlayer.replaceCurrentItem(with: playerItem)
+            self.avPlayer.play()
+            self.filteredVideoURL = self.videoURL
+        }
+        else if self.index == 1 {
+            
+            let sv = UIViewController.displaySpinner(onView: self.view)
+            
+//            self.forwordButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
+//            self.forwordButton.isEnabled = false
+            
+            self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectChrome", completion: { (AVAssetExportSession) in
+                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
+                UIViewController.removeSpinner(spinner: sv)
+//                self.forwordButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
+//                self.forwordButton.isEnabled = true
+                
+            })
+        }else if self.index == 2 {
+            let sv = UIViewController.displaySpinner(onView: self.view)
+            self.playingVideo(videoUrl: self.videoURL, filterNames: "CISepiaTone", completion: { (AVAssetExportSession) in
+                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
+                UIViewController.removeSpinner(spinner: sv)
+            })
+        }else if self.index == 3 {
+            let sv = UIViewController.displaySpinner(onView: self.view)
+            self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectTransfer", completion: { (AVAssetExportSession) in
+                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
+                UIViewController.removeSpinner(spinner: sv)
+            })
+        }else if self.index == 4 {
+            let sv = UIViewController.displaySpinner(onView: self.view)
+            self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectTonal", completion: { (AVAssetExportSession) in
+                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
+                UIViewController.removeSpinner(spinner: sv)
+            })
+        }else if self.index == 5 {
+            let sv = UIViewController.displaySpinner(onView: self.view)
+            self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectProcess", completion: { (AVAssetExportSession) in
+                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
+                UIViewController.removeSpinner(spinner: sv)
+            })
+        }
+        
+        
+    }
+    
+    
+    // MARK:- PROGRESS BAR
     
     // increasing progress bar
     @objc func increaseProgress(){
@@ -698,6 +673,11 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         NotificationCenter.default.removeObserver(self)
     }
     
+    
+    // MARK:- UNWIND
+    
+    @IBAction func unwindToVideoPlaybackFilter(segue: UIStoryboardSegue) {
+    }
     
     // merging
     
