@@ -481,7 +481,8 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         let actionSheet = UIAlertController(title: "Options", message: "Would you like to Retake this Clip?", preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             print("cancel pressed")
-            self.performSegue(withIdentifier: "unwindToFifteenSeconds", sender: self)
+            self.dismiss(animated: true, completion: nil)
+//            self.performSegue(withIdentifier: "unwindToFifteenSeconds", sender: self)
             
         }
         
@@ -607,7 +608,8 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
         print("back pressed here")
         self.avPlayer.pause()
         self.avPlayerLayer.removeFromSuperlayer()
-        self.performSegue(withIdentifier: "unwindToFifteenSec", sender: self)
+        dismiss(animated: true, completion: nil)
+//        self.performSegue(withIdentifier: "unwindToFifteenSec", sender: self)
     }
     
     // increasing progress bar
