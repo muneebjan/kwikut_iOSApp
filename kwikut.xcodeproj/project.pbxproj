@@ -28,6 +28,7 @@
 		18CB296E21C910F900AE7B93 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296821C910F900AE7B93 /* Roboto-Thin.ttf */; };
 		18CB296F21C910F900AE7B93 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296921C910F900AE7B93 /* Roboto-Regular.ttf */; };
 		18CB297021C910F900AE7B93 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18CB296A21C910F900AE7B93 /* Roboto-Light.ttf */; };
+		18D8389622FD4490000A6D2A /* VideoPlaybackSaveVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8389522FD4490000A6D2A /* VideoPlaybackSaveVideo.swift */; };
 		18F7A30121EDF017006CCA03 /* melodyloops-skater.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A30021EDF017006CCA03 /* melodyloops-skater.mp3 */; };
 		18F7A30321EDF13F006CCA03 /* melodyloops-the-first-light.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A30221EDF13F006CCA03 /* melodyloops-the-first-light.mp3 */; };
 		18F7A30521EDF144006CCA03 /* melodyloops-find-the-key.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A30421EDF144006CCA03 /* melodyloops-find-the-key.mp3 */; };
@@ -63,6 +64,7 @@
 		18CB296821C910F900AE7B93 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		18CB296921C910F900AE7B93 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		18CB296A21C910F900AE7B93 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		18D8389522FD4490000A6D2A /* VideoPlaybackSaveVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackSaveVideo.swift; sourceTree = "<group>"; };
 		18F7A30021EDF017006CCA03 /* melodyloops-skater.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "melodyloops-skater.mp3"; sourceTree = "<group>"; };
 		18F7A30221EDF13F006CCA03 /* melodyloops-the-first-light.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "melodyloops-the-first-light.mp3"; sourceTree = "<group>"; };
 		18F7A30421EDF144006CCA03 /* melodyloops-find-the-key.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "melodyloops-find-the-key.mp3"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				180A572521D4CE94003C35D8 /* VideoPlayback.swift */,
 				18142D7122FC31380063BE2E /* VideoPlaybackFilter.swift */,
 				18142D6F22FC1BB80063BE2E /* VideoPlaybackSound.swift */,
+				18D8389522FD4490000A6D2A /* VideoPlaybackSaveVideo.swift */,
 				1884BF10221181C50016B31F /* kwikut-Bridging-Header.h */,
 				18CB295621C8F52B00AE7B93 /* Main.storyboard */,
 				18CB295921C8F53200AE7B93 /* Assets.xcassets */,
@@ -333,6 +336,7 @@
 				180A572621D4CE94003C35D8 /* VideoPlayback.swift in Sources */,
 				1860D0532216A22E006D251B /* ToastView.swift in Sources */,
 				18CB295321C8F52B00AE7B93 /* AppDelegate.swift in Sources */,
+				18D8389622FD4490000A6D2A /* VideoPlaybackSaveVideo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

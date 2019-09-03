@@ -71,6 +71,8 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        print("here I am Video Playback")
+        
         print("merge button: \(UserDefaults.standard.bool(forKey: "mergePressed"))")
         
         if(UserDefaults.standard.bool(forKey: "mergePressed")){
@@ -602,10 +604,10 @@ class VideoPlayback: UIViewController, LCActionSheetDelegate, UIImagePickerContr
     
     // back button
     @objc func backButtonTapped() {
-        print("backbutton tapped")
+        print("back pressed here")
         self.avPlayer.pause()
         self.avPlayerLayer.removeFromSuperlayer()
-        self.performSegue(withIdentifier: "unwindToFifteenSeconds", sender: self)
+        self.performSegue(withIdentifier: "unwindToFifteenSec", sender: self)
     }
     
     // increasing progress bar

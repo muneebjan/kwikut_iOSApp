@@ -65,7 +65,7 @@
                     </view>
                     <connections>
                         <outlet property="videoImageView" destination="c75-Le-vDQ" id="qIX-9T-4XJ"/>
-                        <segue destination="VXC-k0-D1j" kind="unwind" identifier="unwindToFifteenSeconds" unwindAction="unwindToFifteenSecondVCWithSegue:" id="HNv-rF-nCO"/>
+                        <segue destination="VXC-k0-D1j" kind="unwind" unwindAction="unwindToFifteenSecondVCWithSegue:" id="1Yb-i9-Vdx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqY-7B-TsU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -96,13 +96,14 @@
                     </view>
                     <connections>
                         <outlet property="videoImageViewSound" destination="aYJ-CW-Z6I" id="se6-ZS-8Fb"/>
-                        <segue destination="89A-ei-YPg" kind="unwind" identifier="unwindToFifteenSecondsFromSound" unwindAction="unwindToFifteenSecondVCWithSegue:" id="vtf-7H-JME"/>
+                        <segue destination="H9B-qx-y5i" kind="presentation" identifier="showVideoWithAudioSave" id="PLW-YM-z8V"/>
+                        <segue destination="89A-ei-YPg" kind="unwind" identifier="unwindToFifteenSecondsFromSound" unwindAction="unwindToFifteenSecondVCWithSegue:" id="Wjb-Pc-4Kp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZ9-lT-0Qi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="89A-ei-YPg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2110" y="745"/>
+            <point key="canvasLocation" x="958" y="802"/>
         </scene>
         <!--Video Playback Filter-->
         <scene sceneID="7p7-xR-dg5">
@@ -128,11 +129,44 @@
                     <connections>
                         <outlet property="videoImageViewFilter" destination="DN1-He-BBh" id="PwQ-nU-dYx"/>
                         <segue destination="rpJ-yr-EgO" kind="presentation" identifier="showVideoSound" id="WbI-k4-CR3"/>
+                        <segue destination="5qc-fy-KSF" kind="unwind" identifier="unwindToFifteenSecondsFromFilter" unwindAction="unwindToFifteenSecondVCWithSegue:" id="giv-B1-Pci"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCI-sU-gE6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="5qc-fy-KSF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="948" y="746"/>
+            <point key="canvasLocation" x="41" y="802"/>
+        </scene>
+        <!--Video Playback Save Video-->
+        <scene sceneID="igZ-Rw-RDa">
+            <objects>
+                <viewController id="H9B-qx-y5i" customClass="VideoPlaybackSaveVideo" customModule="kwikut" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3ES-re-uet">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vC6-LD-msy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vC6-LD-msy" firstAttribute="leading" secondItem="3ES-re-uet" secondAttribute="leading" id="0ny-Pm-JLY"/>
+                            <constraint firstAttribute="trailing" secondItem="vC6-LD-msy" secondAttribute="trailing" id="2mC-rc-dGO"/>
+                            <constraint firstAttribute="bottom" secondItem="vC6-LD-msy" secondAttribute="bottom" id="KJ1-qE-97V"/>
+                            <constraint firstItem="vC6-LD-msy" firstAttribute="top" secondItem="3ES-re-uet" secondAttribute="top" id="VIf-kM-MgI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Dka-Ga-9Xf"/>
+                    </view>
+                    <connections>
+                        <outlet property="videoImageViewSave" destination="vC6-LD-msy" id="YiJ-qN-VUp"/>
+                        <segue destination="gSh-yu-X90" kind="unwind" identifier="unwindToFifteenSecondsFromSave" unwindAction="unwindToFifteenSecondVCWithSegue:" id="cJc-X5-hWR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v6H-NM-jFw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="gSh-yu-X90" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1993" y="802"/>
         </scene>
     </scenes>
 </document>

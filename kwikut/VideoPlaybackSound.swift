@@ -33,7 +33,7 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Select an effect"
+        label.text = "Select A Song"
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -73,9 +73,11 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
     var audioAddedURL: URL?
     var finalAudioVideoURL: URL?
     var backgroundPlayer = AVAudioPlayer()
-    
-    
     var index: Int!
+    var VideoAudioMergeURL: URL!
+    var isMusicSelected = false
+    var isPlayTapped = false
+    
     
     @IBOutlet weak var videoImageViewSound: UIImageView!
     
@@ -84,6 +86,10 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        if(isMusicSelected == false){
+            self.forwordButton.isEnabled = false
+        }
         
     }
     
@@ -131,13 +137,15 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
     
     
     
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //
-    //        let vc = segue.destination as! VideoPlaybackSound
-    //        vc.videoURL = sender as! URL
-    //        //        vc.videoCount = URLcollection.count
-    //
-    //    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showVideoWithAudioSave"{
+            let vc = segue.destination as! VideoPlaybackSaveVideo
+            vc.videoURL = sender as! URL
+            //        vc.videoCount = URLcollection.count
+        }
+
+    }
     
     // ==========================================================================================
     // ================================= SETUP VIEW FUNCTION ====================================
@@ -337,23 +345,7 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
         return composition
         
     }
-    
-    // ==========================================================================================
-    // ==================================== ADDING GESTURE ======================================
-    // ==========================================================================================
-    
-    //    func addGesture() {
-    //        let tap = UITapGestureRecognizer(target: self, action: #selector(retakeActionSheet))
-    //        let filtertap = UITapGestureRecognizer(target: self, action: #selector(filtersActionSheet))
-    //
-    //        if(UserDefaults.standard.bool(forKey: "mergePressed")){
-    //            view.addGestureRecognizer(filtertap)
-    //        }else{
-    //            view.addGestureRecognizer(tap)
-    //        }
-    //        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(zoomPinchFunction))
-    //        view.addGestureRecognizer(pinch)
-    //    }
+
     
     
     
@@ -390,25 +382,40 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
             
             if(index == 0){
                 print("cancel pressed")
+                self.index = index
+                self.forwordButton.isEnabled = true
             }
             if(index == 1){
-                self.playBackgroundMusic(fileName: "melodyloops-skater.mp3")
+                self.index = index
+                self.isMusicSelected = true
+                self.forwordButton.isEnabled = true
             }
             if(index == 2){
-                self.playBackgroundMusic(fileName: "melodyloops-the-first-light.mp3")
+                self.index = index
+                self.isMusicSelected = true
+                self.forwordButton.isEnabled = true
             }
             if(index == 3){
-                self.playBackgroundMusic(fileName: "melodyloops-find-the-key.mp3")
+                self.index = index
+                self.isMusicSelected = true
+                self.forwordButton.isEnabled = true
             }
             if(index == 4){
-                self.playBackgroundMusic(fileName: "melodyloops-winter-love.mp3")
+                self.index = index
+                self.isMusicSelected = true
+                self.forwordButton.isEnabled = true
             }
             if(index == 5){
-                self.playBackgroundMusic(fileName: "melodyloops-travel-dreams.mp3")
+                self.index = index
+                self.isMusicSelected = true
+                self.forwordButton.isEnabled = true
             }
             if(index == 6){
-                let url = UserDefaults.standard.url(forKey: "audioURL")!
-                self.playBackgroundMusicOriginal(newURL: url)
+                self.isMusicSelected = true
+                self.forwordButton.isEnabled = true
+                self.index = index
+//                let url = UserDefaults.standard.url(forKey: "audioURL")!
+//                self.playBackgroundMusicOriginal(newURL: url)
             }
             
             
@@ -485,9 +492,11 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
     
     // back button
     @objc func backButtonTapped() {
-        print("backbutton tapped")
+        print("backbutton tapped SOUND")
         self.avPlayer.pause()
         self.avPlayerLayer.removeFromSuperlayer()
+        
+//        self.dismiss(animated: true, completion: nil)
         self.performSegue(withIdentifier: "unwindToFifteenSecondsFromSound", sender: self)
     }
     
@@ -500,66 +509,77 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
     @objc func forwardButtonHandler() {
         print("forward tapped")
         
-        //        performSegue(withIdentifier: "showVideoWithAudio", sender: videoURL)
+        if (isMusicSelected == false){
+            self.performSegue(withIdentifier: "showVideoWithAudioSave", sender: self.videoURL)
+        }
+        else{
+            
+            
+            if(self.isPlayTapped == false){
+                ToastView.shared.short(view, txt_msg: "Please Play the Audio First")
+            }
+            else{
+                
+                if backgroundPlayer.play(){
+                    self.backgroundPlayer.stop()
+                }
+                
+                mergeVideoWithAudio(videoUrl: self.videoURL, audioUrl: self.audioAddedURL!, success: { (mergedVideoURL) in
+                    
+                    print("merged video URL12 = \(mergedVideoURL)")
+                    self.avPlayer.pause()
+                    self.avPlayerLayer.removeFromSuperlayer()
+                    self.performSegue(withIdentifier: "showVideoWithAudioSave", sender: mergedVideoURL)
+                    
+                }) { (error) in
+                    print("error here: \(error)")
+                }
+                
+            }
+            
+        }
+        
     }
     
     
     // MARK:- PLAY BUTTON
     @objc func playButtonHandler() {
         print("play tapped")
+        
+        self.isPlayTapped = true
+        
+        
         if self.index == nil{
             print("no filter select")
-        }
-        else if(self.index == 0){
-            
-            let playerItem = AVPlayerItem(url: self.videoURL)
-            self.avPlayer.replaceCurrentItem(with: playerItem)
-            self.avPlayer.play()
-            
-        }
-        else if self.index == 1 {
-            self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectChrome", completion: { (AVAssetExportSession) in
-                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                //                self.saveButton.isEnabled = true
-                //                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                //                self.musicButton.isEnabled = true
-                //                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-            })
-        }else if self.index == 2 {
-            self.playingVideo(videoUrl: self.videoURL, filterNames: "CISepiaTone", completion: { (AVAssetExportSession) in
-                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                //                self.saveButton.isEnabled = true
-                //                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                //                self.musicButton.isEnabled = true
-                //                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-            })
-        }else if self.index == 3 {
-            self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectTransfer", completion: { (AVAssetExportSession) in
-                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                //                self.saveButton.isEnabled = true
-                //                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                //                self.musicButton.isEnabled = true
-                //                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-            })
-        }else if self.index == 4 {
-            self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectTonal", completion: { (AVAssetExportSession) in
-                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                //                self.saveButton.isEnabled = true
-                //                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                //                self.musicButton.isEnabled = true
-                //                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-            })
-        }else if self.index == 5 {
-            self.playingVideo(videoUrl: self.videoURL, filterNames: "CIPhotoEffectProcess", completion: { (AVAssetExportSession) in
-                print("printing Video URL: \(AVAssetExportSession.outputURL!)")
-                //                self.saveButton.isEnabled = true
-                //                self.saveButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-                //                self.musicButton.isEnabled = true
-                //                self.musicButton.setTitleColor(UIColor.white.withAlphaComponent(1), for: .normal)
-            })
+//            self.filteredVideoURL = self.videoURL
+            self.audioAddedURL = self.videoURL
         }
         
-        
+        if(index == 0){
+            print("cancel pressed")
+            self.audioAddedURL = self.videoURL
+        }
+        if(index == 1){
+            self.playBackgroundMusic(fileName: "melodyloops-skater.mp3")
+        }
+        else if(index == 2){
+            self.playBackgroundMusic(fileName: "melodyloops-the-first-light.mp3")
+        }
+        else if(index == 3){
+            self.playBackgroundMusic(fileName: "melodyloops-find-the-key.mp3")
+        }
+        else if(index == 4){
+
+            self.playBackgroundMusic(fileName: "melodyloops-winter-love.mp3")
+        }
+        else if(index == 5){
+
+            self.playBackgroundMusic(fileName: "melodyloops-travel-dreams.mp3")
+        }
+        else if(index == 6){
+            let url = UserDefaults.standard.url(forKey: "audioURL")!
+            self.playBackgroundMusicOriginal(newURL: url)
+        }
     }
     
     
@@ -577,71 +597,6 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
         
     }
     
-    // save video button tapped
-    @objc func saveVideoButtonTapped() {
-        print("save video button tapped")
-        print(self.filteredVideoURL)
-        print(self.audioAddedURL)
-        
-        HCProgressiveAlertView.shared().show()
-        HCProgressiveAlertView.shared().topTitle = "Saving Your Kwikut"
-        HCProgressiveAlertView.shared().bottomButtonText = "OK"
-        self.perform(#selector(self.increaseProgress), with: nil, afterDelay: 0.1)
-        HCProgressiveAlertView.shared().bottomButtonClickedBlock = {
-            print("bottom button pressed")
-            HCProgressiveAlertView.shared().dismiss()
-        }
-        
-        if let url = self.audioAddedURL{
-            
-            if let urlfilteredVideo = self.filteredVideoURL{
-                self.mergeVideoWithAudio(videoUrl: urlfilteredVideo, audioUrl: self.audioAddedURL!, success: { (URL) in
-                    print("success URL: \(URL)")
-                }, failure: { (error) in
-                    print("error here: \(error)")
-                })
-            }else{
-                self.mergeVideoWithAudio(videoUrl: self.videoURL, audioUrl: self.audioAddedURL!, success: { (URL) in
-                    print("success URL: \(URL)")
-                }, failure: { (error) in
-                    print("error here: \(error)")
-                })
-                
-            }
-            
-            
-            
-        }else if let url = self.filteredVideoURL{
-            
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url) // self.filteredVideoURL!
-            }) { saved, error in
-                if saved {
-                    print("video saved")
-                }else{
-                    let alertController = UIAlertController(title: "Video not saved Please try again", message: nil, preferredStyle: .alert)
-                    let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(defaultAction)
-                    self.present(alertController, animated: true, completion: nil)
-                }
-            }
-            
-        }else{
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.videoURL)
-            }) { saved, error in
-                if saved {
-                    print("video saved")
-                }else{
-                    let alertController = UIAlertController(title: "Video not saved Please try again", message: nil, preferredStyle: .alert)
-                    let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(defaultAction)
-                    self.present(alertController, animated: true, completion: nil)
-                }
-            }
-        }
-        
-    }
 
     
     // Remove Observer
@@ -657,6 +612,8 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
 //    }
     
     // merging
+    
+    
     
     func mergeVideoWithAudio(videoUrl: URL, audioUrl: URL, success: @escaping ((URL) -> Void), failure: @escaping ((Error?) -> Void)) {
         
@@ -710,20 +667,6 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
                 /// try to export the file and handle the status cases
                 exportSession.exportAsynchronously(completionHandler: {
                     switch exportSession.status {
-                    case .completed:
-                        
-                        print("status completed")
-                        //if u want to store your video in asset
-                        
-                        PHPhotoLibrary.shared().performChanges({
-                            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
-                        }) { saved, error in
-                            if saved {
-                                
-                                print("video saved to gallery with audio")
-                                
-                            }
-                        }
                     case .failed:
                         if let _error = exportSession.error {
                             failure(_error)
@@ -744,6 +687,98 @@ class VideoPlaybackSound: UIViewController, LCActionSheetDelegate, UIImagePicker
             }
         }
     }
+    
+    
+//    func mergeVideoWithAudio(videoUrl: URL, audioUrl: URL, success: @escaping ((URL) -> Void), failure: @escaping ((Error?) -> Void)) {
+//
+//
+//        let mixComposition: AVMutableComposition = AVMutableComposition()
+//        var mutableCompositionVideoTrack: [AVMutableCompositionTrack] = []
+//        var mutableCompositionAudioTrack: [AVMutableCompositionTrack] = []
+//        let totalVideoCompositionInstruction : AVMutableVideoCompositionInstruction = AVMutableVideoCompositionInstruction()
+//
+//        let aVideoAsset: AVAsset = AVAsset(url: videoUrl)
+//        let aAudioAsset: AVAsset = AVAsset(url: audioUrl)
+//
+//        if let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid), let audioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
+//            mutableCompositionVideoTrack.append(videoTrack)
+//            mutableCompositionAudioTrack.append(audioTrack)
+//
+//            if let aVideoAssetTrack: AVAssetTrack = aVideoAsset.tracks(withMediaType: .video).first, let aAudioAssetTrack: AVAssetTrack = aAudioAsset.tracks(withMediaType: .audio).first {
+//                do {
+//                    try mutableCompositionVideoTrack.first?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: aVideoAssetTrack.timeRange.duration), of: aVideoAssetTrack, at: CMTime.zero)
+//                    try mutableCompositionAudioTrack.first?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: aVideoAssetTrack.timeRange.duration), of: aAudioAssetTrack, at: CMTime.zero)
+//                    videoTrack.preferredTransform = aVideoAssetTrack.preferredTransform
+//
+//                } catch{
+//                    print(error)
+//                }
+//
+//
+//                totalVideoCompositionInstruction.timeRange = CMTimeRangeMake(start: CMTime.zero,duration: aVideoAssetTrack.timeRange.duration)
+//            }
+//        }
+//
+//        let mutableVideoComposition: AVMutableVideoComposition = AVMutableVideoComposition()
+//        mutableVideoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
+//        mutableVideoComposition.renderSize = CGSize(width: 480, height: 640)
+//
+//        if let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+//            let outputURL = URL(fileURLWithPath: documentsPath).appendingPathComponent("\("fileName").mp4")
+//
+//            do {
+//                if FileManager.default.fileExists(atPath: outputURL.path) {
+//
+//                    try FileManager.default.removeItem(at: outputURL)
+//                }
+//            } catch { }
+//
+//            if let exportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality) {
+//                exportSession.outputURL = outputURL
+//                exportSession.outputFileType = AVFileType.mp4
+//                exportSession.shouldOptimizeForNetworkUse = true
+//
+//                /// try to export the file and handle the status cases
+//                exportSession.exportAsynchronously(completionHandler: {
+//                    switch exportSession.status {
+//                    case .completed:
+//
+//                        print("status completed")
+//                        print("output URL: \(outputURL)")
+//
+//                        self.VideoAudioMergeURL = outputURL
+//                        success(outputURL)
+//                        //if u want to store your video in asset
+//
+////                        PHPhotoLibrary.shared().performChanges({
+////                            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
+////                        }) { saved, error in
+////                            if saved {
+////
+////                                print("video saved to gallery with audio")
+////
+////                            }
+////                        }
+//                    case .failed:
+//                        if let _error = exportSession.error {
+//                            failure(_error)
+//                        }
+//
+//                    case .cancelled:
+//                        if let _error = exportSession.error {
+//                            failure(_error)
+//                        }
+//
+//                    default:
+//                        print("finished")
+//                        success(outputURL)
+//                    }
+//                })
+//            } else {
+//                failure(nil)
+//            }
+//        }
+//    }
     
 }
 
