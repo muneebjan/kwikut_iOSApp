@@ -65,13 +65,13 @@
                     </view>
                     <connections>
                         <outlet property="videoImageView" destination="c75-Le-vDQ" id="qIX-9T-4XJ"/>
-                        <segue destination="VXC-k0-D1j" kind="unwind" unwindAction="unwindToFifteenSecondVCWithSegue:" id="1Yb-i9-Vdx"/>
+                        <segue destination="VXC-k0-D1j" kind="unwind" identifier="unwindToFifteenSeconds" unwindAction="unwindToFifteenSecondVCWithSegue:" id="1Yb-i9-Vdx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqY-7B-TsU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="VXC-k0-D1j" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1586" y="26"/>
+            <point key="canvasLocation" x="1084" y="26"/>
         </scene>
         <!--Video Playback Sound-->
         <scene sceneID="aDt-Ph-mv2">
